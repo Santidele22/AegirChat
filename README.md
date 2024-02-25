@@ -1,2 +1,2 @@
-# webscocket-app
-App para aprender como funciona websocket
+# Aegir-Chat
+Chat para aprender como funciona websocket
