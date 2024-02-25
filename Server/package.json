@@ -1,0 +1,20 @@
+{
+  "name": "webscocket-app",
+  "version": "1.0.0",
+  "description": "App para aprender como funciona websocket",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --watch ./src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "standard": "^17.1.0"
+  },
+  "dependencies": {
+    "ws": "^8.16.0"
+  }
+}
