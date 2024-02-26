@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aegir Chat</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        /*Primary color*/
+        --primary-50: #f3f3f3;
+        --primary-100: #e8e7e7;
+        --primary-200: #c4c4c4;
+        --primary-300: #a1a0a0;
+        --primary-400: #5b5959;
+        --primary-500: #141212;
+        --primary-600: #121010;
+        --primary-700: #0f0e0e;
+        --primary-800: #0c0b0b;
+        --primary-900: #0a0909;
+        /*Secondary color*/
+        --secondary-50: #f4f7fa;
+        --secondary-100: #e9eef5;
+        --secondary-200: #c8d5e7;
+        --secondary-300: #a6bbd8;
+        --secondary-400: #6489ba;
+        --secondary-500: #21569d;
+        --secondary-600: #1e4d8d;
+        --secondary-700: #194176;
+        --secondary-800: #14345e;
+        --secondary-900: #102a4d;
+      }
+      .main {
+        display: flex;
+        overflow: hidden;
+        width: 100vw;
+        height: 100vh;
+      }
+      .messages {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-flow: column-reverse;
+        justify-content: space-between;
+        background-color: var(--primary-700);
+      }
+      .input_container {
+        background: var(--secondary-700);
+      }
+      .form {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        max-height: 60px;
+        height: 60px;
+      }
+      .form_input {
+        min-width: 90%;
+        margin: 0 auto;
+        padding: 1rem;
+        height: 100%;
+        border-style: none;
+
+
+      }
+      .form_input:focus-visible {
+        outline: none;
+      }
+      .aside {
+        width: 345px;
+        min-width: 345px;
+        max-height: 100%;
+        background-color: var(--secondary-50);
+        border-right: 1px solid gray;
+        color: var(--secondary-400);
+      }
+      .title {
+        margin: 1rem 0;
+        padding: 1rem;
+        text-align: center;
+        font-size: 1.5rem;
+        border-bottom: 2px solid #6f8b9b;
+      }
+      .contacts {
+        display: flex;
+        width: 100%;
+        max-height: 250px;
+        border-top: 1px solid #6f8b9b;
+        border-bottom: 1px solid #6f8b9b;
+        background-color: var(--secondary-100);
+        color: 0;
+        cursor: pointer;
+      }
+      .contacts_clicked {
+        transition: 0.5s all;
+        background-color: var(--gray-4);
+      }
+      .contact {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        padding: 0.5rem;
+      }
+      .avatar {
+        margin-right: 0.5rem;
+        max-width: 80px;
+        max-height: 80px;
+        border-radius: 50%;
+      }
+      .avatar img {
+        display: block;
+        max-width: 100%;
+        min-height: 100%;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 50%;
+      }
+      .container {
+        display: flex;
+        flex-flow: column wrap;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        font-size: 1.1rem;
+      }
+      li {
+        list-style-type: none;
+        padding: 1rem;
+        background: var(--timberwolf-gray);
+        margin: 1rem;
+        border-radius: 1rem;
+        color: gray;
+        max-width: 150px;
+        width: 150px;
+        font-weight: bold;
+      }
+      .message_container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 1.2rem;
+      }
+
+      .message_container > li:nth-child(odd) {
+        align-self: flex-end;
+        background-color: lightblue;
+      }
+
+      .message_container > li:nth-child(even) {
+        align-self: flex-start;
+        background-color: lightgreen;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main">
+      <aside class="aside">
+        <div class="title">
+          <h1 class="aside_title">Aegir</h1>
+        </div>
+        <div class="contacts">
+          <div class="contact">
+            <figure class="avatar">
+              <img
+                src="https://imgs.search.brave.com/Islu10oqlj2mEN12Wz9ZgZGoi_aSLrnRlplKOjpsVaY/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9wcm9k/LXJpcGN1dC1kZWxp/dmVyeS5kaXNuZXkt/cGx1cy5uZXQvdjEv/dmFyaWFudC9kaXNu/ZXkvMENGNzg3REE0/QkUzNkNERERGN0Yx/OEYxOEFFRTk2RTgx/RUJCQTcyRDAxMzJD/NkUyMEVGQ0FCREFG/NjJEODdGNS9zY2Fs/ZT93aWR0aD00NDAm/YXNwZWN0UmF0aW89/MS43OCZmb3JtYXQ9/d2VicA"
+                alt="avatar"
+              />
+            </figure>
+            <div class="container">
+              <div class="contact_name">Niko</div>
+              <div class="contact_message">Hola puto</div>
+            </div>
+          </div>
+        </div>
+        <!--
+          contact 2
+        -->
+        <div class="contacts">
+          <div class="contact">
+            <figure class="avatar">
+              <img
+                src="https://imgs.search.brave.com/Islu10oqlj2mEN12Wz9ZgZGoi_aSLrnRlplKOjpsVaY/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9wcm9k/LXJpcGN1dC1kZWxp/dmVyeS5kaXNuZXkt/cGx1cy5uZXQvdjEv/dmFyaWFudC9kaXNu/ZXkvMENGNzg3REE0/QkUzNkNERERGN0Yx/OEYxOEFFRTk2RTgx/RUJCQTcyRDAxMzJD/NkUyMEVGQ0FCREFG/NjJEODdGNS9zY2Fs/ZT93aWR0aD00NDAm/YXNwZWN0UmF0aW89/MS43OCZmb3JtYXQ9/d2VicA"
+                alt="avatar"
+              />
+            </figure>
+            <div class="container">
+              <div class="contact_name">Niko</div>
+              <div class="contact_message">Hola puto</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+      <section class="messages">
+        <div class="input_container">
+          <form action="submit" class="form">
+            <input
+              type="text"
+              placeholder="Send a message"
+              class="form_input"
+            />
+          </form>
+        </div>
+        <div class="message_container"></div>
+      </section>
+    </main>
+  </body>
+  <script>
+    //Variables
+    const form = document.querySelector(".form");
+    const input = document.querySelector(".form_input");
+    const messageContainer = document.querySelector(".message_container");
+    const contacts = document.querySelectorAll(".contacts");
+    console.log(contacts);
+    const ws = new WebSocket("ws://localhost:3000");
+    //funciones
+    //Cambio de background al hacer click
+    contacts.forEach((contact) => {
+      contact.addEventListener("click", () => {
+        contacts.forEach((otherContact) => {
+          otherContact.classList.remove("contacts_clicked");
+        });
+        // Agregar la clase 'contacts_clicked' solo al elemento que se ha hecho clic
+        contact.classList.add("contacts_clicked");
+      });
+    });
+    // Evento de conexión
+    ws.onopen = function () {
+      console.log("WebSocket connected");
+    };
+    // Evento de recepción de mensaje
+    ws.onmessage = function (event) {
+      console.log("Message received:", event.data);
+    };
+    // Evento de cierre de conexión
+    ws.onclose = function () {
+      console.log("WebSocket connection closed");
+    };
+
+    // Función para enviar un mensaje
+    function sendMessage(message) {
+      console.log(message);
+      ws.send(message);
+    }
+    // Función para crear un elemento <p> con el mensaje y agregarlo al contenedor
+    function createMessageElement(message) {
+      const messageElement = document.createElement("li");
+      messageElement.textContent = message;
+      messageContainer.appendChild(messageElement);
+    }
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault(); // Prevenir el comportamiento predeterminado de enviar el formulario
+      const message = input.value.trim();
+      if (message !== "") {
+        sendMessage(message);
+        createMessageElement(message);
+      }
+      input.value = "";
+    });
+  </script>
+</html>

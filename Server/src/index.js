@@ -29,10 +29,9 @@ wss.on("connection", function connection(ws) {
   ws.on("error", console.error);
 
   ws.on("message", function message(data) {
-    console.log("received: %s", data);
+    ws.send("Mensaje recibido por el servidor " + data);
   });
-
-  ws.send("conectado hijo de re mil puta");
+  ws.send("Conectado Hijo de remil puta");
 });
 
 server.listen(PORT, () => {
