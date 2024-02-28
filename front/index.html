@@ -34,232 +34,285 @@
         --secondary-800: #14345e;
         --secondary-900: #102a4d;
       }
-      .main {
-        display: flex;
-        overflow: hidden;
-        width: 100vw;
-        height: 100vh;
-      }
-      .messages {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-flow: column-reverse;
-        justify-content: space-between;
-        background-color: var(--primary-700);
-      }
-      .input_container {
-        background: var(--secondary-700);
-      }
-      .form {
-        width: 100%;
+      body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        background: var(--primary-900);
+        color: var(--secondary-400);
         display: flex;
         justify-content: center;
-        max-height: 60px;
-        height: 60px;
+        height: 100vh;
       }
-      .form_input {
-        min-width: 90%;
-        margin: 0 auto;
-        padding: 1rem;
-        height: 100%;
-        border-style: none;
-
-
-      }
-      .form_input:focus-visible {
-        outline: none;
-      }
-      .aside {
-        width: 345px;
-        min-width: 345px;
-        max-height: 100%;
-        background-color: var(--secondary-50);
-        border-right: 1px solid gray;
-        color: var(--secondary-400);
-      }
-      .title {
-        margin: 1rem 0;
-        padding: 1rem;
-        text-align: center;
-        font-size: 1.5rem;
-        border-bottom: 2px solid #6f8b9b;
-      }
-      .contacts {
-        display: flex;
+      .app {
+        position: fixed;
         width: 100%;
-        max-height: 250px;
-        border-top: 1px solid #6f8b9b;
-        border-bottom: 1px solid #6f8b9b;
-        background-color: var(--secondary-100);
-        color: 0;
+        height: 100%;
+        max-width: 600px;
+      }
+      .app > .screen {
+        display: none;
+      }
+      .app > .screen.active {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      .screen .form {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        max-width: 400px;
+        margin: auto;
+        text-align: center;
+        border: 1px solid;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        background: var(--secondary-900);
+      }
+      .screen .form-input {
+        width: 100%;
+        margin: 20px 8px;
+      }
+      .screen .form-input h2 {
+        margin-bottom: 20px;
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--primary-100);
+      }
+      .screen .form-input label {
+        display: block;
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+        color: var(--primary-100);
+      }
+      .screen .form-input input {
+        width: 100%;
+        border-style: none;
+        padding: 1rem;
+        font-size: 1rem;
+      }
+      .screen .form-input button {
+        padding: 1rem;
+        border-radius: 1rem;
+        background: var(--secondary-600);
+        color: var(--primary-200);
+        border-style: none;
+        width: 250px;
+        font-weight: bold;
+        font-size: 1.5rem;
         cursor: pointer;
       }
-      .contacts_clicked {
-        transition: 0.5s all;
-        background-color: var(--gray-4);
+      .screen .form-input button:hover {
+        transition: 0.3s all;
+        background: var(--secondary-400);
       }
-      .contact {
-        display: flex;
-        width: 100%;
-        height: 100%;
-        padding: 0.5rem;
-      }
-      .avatar {
-        margin-right: 0.5rem;
-        max-width: 80px;
-        max-height: 80px;
-        border-radius: 50%;
-      }
-      .avatar img {
-        display: block;
-        max-width: 100%;
-        min-height: 100%;
-        object-fit: cover;
-        object-position: center;
-        border-radius: 50%;
-      }
-      .container {
-        display: flex;
-        flex-flow: column wrap;
-        overflow: hidden;
-        width: 100%;
-        height: 100%;
-        font-size: 1.1rem;
-      }
-      li {
-        list-style-type: none;
-        padding: 1rem;
-        background: var(--timberwolf-gray);
-        margin: 1rem;
-        border-radius: 1rem;
-        color: gray;
-        max-width: 150px;
-        width: 150px;
+      .title {
+        font-size: 3rem;
         font-weight: bold;
       }
-      .message_container {
+      /*Chat screem*/
+      .chat-screen .header {
         display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        font-size: 1.2rem;
+        justify-content: space-between;
+        align-items: center;
+        align-content: center;
+        background: var(--secondary-500);
+        color: var(--secondary-50);
+        height: 50px;
+        padding: 0.8rem 1.2rem;
       }
-
-      .message_container > li:nth-child(odd) {
-        align-self: flex-end;
-        background-color: lightblue;
+      .chat-screen .header .logo {
+        font-size: 1.1rem;
+        font-weight: 600;
       }
-
-      .message_container > li:nth-child(even) {
-        align-self: flex-start;
-        background-color: lightgreen;
+      .chat-screen .header button {
+        padding: 0.8rem;
+        border-style: none;
+        width: 60px;
+        background-color: var(--secondary-50);
+        outline: none;
+        cursor: pointer;
+      }
+      .chat-screen .header button:hover {
+        transition: 0.5s all;
+        background-color: var(--secondary-300);
+      }
+      .chat-screen .messages {
+        width: 100%;
+        height: calc(100% - 100px);
+        background-color: var(--secondary-100);
+        overflow: auto;
+      }
+      .chat-screen .messages .message {
+        display: flex;
+        padding: 0.9rem;
+      }
+      .chat-screen .messages .message > div {
+        max-width: 80%;
+        background-color: #fff;
+        padding: 10px;
+      }
+      .chat-screen .messages .message.my-message {
+        justify-content: flex-end;
+      }
+      .chat-screen .messages .message.other-message {
+        justify-content: flex-start;
+      }
+      .chat-screen .messages .name {
+        font-size: 1rem;
+        color: var(--secondary-500);
+        margin-bottom: 0.3rem;
+      }
+      .chat-screen .messages .text {
+        word-wrap: break-word;
+      }
+      .chat-screen .messages .update {
+        text-align: center;
+        padding: 1rem;
+        font-style: italic;
+      }
+      .chat-screen .typebox {
+        width: 100%;
+        height: 50px;
+        display: flex;
+      }
+      .chat-screen .typebox input {
+        flex: 1;
+        height: 50px;
+        font-size: 1rem;
+        background-color: var(--secondary-100);
+      }
+      .chat-screen .typebox button {
+        width: 80px;
+        height: 100%;
+        outline: none;
+        cursor: pointer;
+        background-color: var(--secondary-600);
+        color: var(--primary-100);
       }
     </style>
   </head>
   <body>
-    <main class="main">
-      <aside class="aside">
-        <div class="title">
-          <h1 class="aside_title">Aegir</h1>
-        </div>
-        <div class="contacts">
-          <div class="contact">
-            <figure class="avatar">
-              <img
-                src="https://imgs.search.brave.com/Islu10oqlj2mEN12Wz9ZgZGoi_aSLrnRlplKOjpsVaY/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9wcm9k/LXJpcGN1dC1kZWxp/dmVyeS5kaXNuZXkt/cGx1cy5uZXQvdjEv/dmFyaWFudC9kaXNu/ZXkvMENGNzg3REE0/QkUzNkNERERGN0Yx/OEYxOEFFRTk2RTgx/RUJCQTcyRDAxMzJD/NkUyMEVGQ0FCREFG/NjJEODdGNS9zY2Fs/ZT93aWR0aD00NDAm/YXNwZWN0UmF0aW89/MS43OCZmb3JtYXQ9/d2VicA"
-                alt="avatar"
-              />
-            </figure>
-            <div class="container">
-              <div class="contact_name">Niko</div>
-              <div class="contact_message">Hola puto</div>
-            </div>
+    <main class="app">
+      <section class="screen join-screen active">
+        <h1 class="title">Welcome to AEgir Chatroom</h1>
+        <form action="" class="form">
+          <div class="form-input">
+            <h2>Join ChatRoom</h2>
+            <label for="">Username</label>
+            <input type="text" id="username" autocomplete="off" />
           </div>
-        </div>
-        <!--
-          contact 2
-        -->
-        <div class="contacts">
-          <div class="contact">
-            <figure class="avatar">
-              <img
-                src="https://imgs.search.brave.com/Islu10oqlj2mEN12Wz9ZgZGoi_aSLrnRlplKOjpsVaY/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9wcm9k/LXJpcGN1dC1kZWxp/dmVyeS5kaXNuZXkt/cGx1cy5uZXQvdjEv/dmFyaWFudC9kaXNu/ZXkvMENGNzg3REE0/QkUzNkNERERGN0Yx/OEYxOEFFRTk2RTgx/RUJCQTcyRDAxMzJD/NkUyMEVGQ0FCREFG/NjJEODdGNS9zY2Fs/ZT93aWR0aD00NDAm/YXNwZWN0UmF0aW89/MS43OCZmb3JtYXQ9/d2VicA"
-                alt="avatar"
-              />
-            </figure>
-            <div class="container">
-              <div class="contact_name">Niko</div>
-              <div class="contact_message">Hola puto</div>
-            </div>
+          <div class="form-input">
+            <button id="join-user">Join</button>
           </div>
+        </form>
+      </section>
+      <section class="screen chat-screen">
+        <header class="header">
+          <h3 class="logo">AEgir Chat</h3>
+          <button id="exit-chat">Exit</button>
+        </header>
+        <div class="messages"></div>
+        <div class="typebox">
+          <input type="text" id="message-input" />
+          <button id="send-message">Enviar</button>
         </div>
-      </aside>
-      <section class="messages">
-        <div class="input_container">
-          <form action="submit" class="form">
-            <input
-              type="text"
-              placeholder="Send a message"
-              class="form_input"
-            />
-          </form>
-        </div>
-        <div class="message_container"></div>
       </section>
     </main>
-  </body>
-  <script>
-    //Variables
-    const form = document.querySelector(".form");
-    const input = document.querySelector(".form_input");
-    const messageContainer = document.querySelector(".message_container");
-    const contacts = document.querySelectorAll(".contacts");
-    console.log(contacts);
-    const ws = new WebSocket("ws://localhost:3000");
-    //funciones
-    //Cambio de background al hacer click
-    contacts.forEach((contact) => {
-      contact.addEventListener("click", () => {
-        contacts.forEach((otherContact) => {
-          otherContact.classList.remove("contacts_clicked");
-        });
-        // Agregar la clase 'contacts_clicked' solo al elemento que se ha hecho clic
-        contact.classList.add("contacts_clicked");
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+   function startChat() {
+  const app = document.querySelector(".app");
+  const socket = io();
+  let uname;
+  app
+      .querySelector(".chat-screen #exit-chat")
+      .addEventListener("click", () => {
+        socket.emit("exituser", uname);
+        window.location.href = window.location.href;
       });
-    });
-    // Evento de conexión
-    ws.onopen = function () {
-      console.log("WebSocket connected");
-    };
-    // Evento de recepción de mensaje
-    ws.onmessage = function (event) {
-      console.log("Message received:", event.data);
-    };
-    // Evento de cierre de conexión
-    ws.onclose = function () {
-      console.log("WebSocket connection closed");
-    };
-
-    // Función para enviar un mensaje
-    function sendMessage(message) {
-      console.log(message);
-      ws.send(message);
-    }
-    // Función para crear un elemento <p> con el mensaje y agregarlo al contenedor
-    function createMessageElement(message) {
-      const messageElement = document.createElement("li");
-      messageElement.textContent = message;
-      messageContainer.appendChild(messageElement);
-    }
-
-    form.addEventListener("submit", (e) => {
-      e.preventDefault(); // Prevenir el comportamiento predeterminado de enviar el formulario
-      const message = input.value.trim();
-      if (message !== "") {
-        sendMessage(message);
-        createMessageElement(message);
+  app
+    .querySelector(".join-screen #join-user")
+    .addEventListener("click", (e) => {
+      e.preventDefault();
+      let username = app.querySelector("#username").value;
+      if (username.length === 0) {
+        return;
       }
-      input.value = "";
+
+      socket.emit("newuser", username);
+      uname = username;
+      app.querySelector(".join-screen").classList.remove("active");
+      app.querySelector(".chat-screen").classList.add("active");
     });
-  </script>
+  app
+    .querySelector(".chat-screen #send-message")
+    .addEventListener("click", () => {
+      let message = app.querySelector(
+        ".chat-screen #message-input"
+      ).value;
+      if (message.length === 0) {
+        return;
+      }
+      renderMessage("my", {
+        username: uname,
+        text: message,
+      });
+
+      socket.emit("chat", {
+        username: uname,
+        text: message,
+      });
+      app.querySelector(".chat-screen #message-input").value = "";
+    });
+
+  socket.on("update", (update) => {
+    renderMessage("update", update);
+  });
+  socket.on("chat", (message) => {
+    renderMessage("other", message);
+  });
+  function renderMessage(type, message) {
+    let messageContainer = app.querySelector(".chat-screen .messages");
+    if (type === "my") {
+      let el = document.createElement("div");
+      el.setAttribute("class", "message my-message");
+      el.innerHTML = `
+          <div>
+            <div class="name">You</div> 
+            <div class="text">${message.text}</div> 
+            </div>
+        `;
+      messageContainer.appendChild(el);
+    } else if (type === "other") {
+      let el = document.createElement("div");
+      el.setAttribute("class", "message other-message");
+      el.innerHTML = `
+          <div>
+            <div class="name">${message.username}</div> 
+            <div class="text">${message.text}</div> 
+            </div>
+        `;
+      messageContainer.appendChild(el);
+    } else if (type === "update") {
+      console.log(message);
+      let el = document.createElement("div");
+      el.setAttribute("class", "message update");
+      el.innerText = message;
+      messageContainer.appendChild(el);
+    }
+  
+    messageContainer.scrollTop =
+      messageContainer.scrollHeight - messageContainer.clientHeight;
+  }
+}
+
+// Llamar a la función para iniciar el chat
+startChat();
+
+    </script>
+  </body>
 </html>

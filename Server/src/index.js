@@ -1,6 +1,4 @@
 const http = require("node:http");
-const fs = require("node:fs");
-const WebSocket = require("ws");
 const pageRoutes = require("./routes/routes");
 
 const HOSTNAME = "127.0.0.1";
@@ -18,22 +16,26 @@ const server = http.createServer((req, res) => {
       res.end("Not Found");
   }
 });
-//Ws connection
-const wss = new WebSocket.Server({
-  server: server,
-  perMessageDeflate: false,
-});
+const io = require("socket.io")(server);
 
-wss.on("connection", function connection(ws) {
-  console.log("WebSocket client connected successfully."); // Mensaje de registro
-  ws.on("error", console.error);
+io.on("connection", (socket) => {
+  socket.on("newuser", (username) => {
+    console.log("username", username);
+    console.log("update", username + " joined the conversation");
+    socket.broadcast.emit("update", username + " joined the conversation");
 
-  ws.on("message", function message(data) {
-    ws.send("Mensaje recibido por el servidor " + data);
+    console.log(
+      socket.broadcast.emit("update", username + " joined the conversation")
+    );
   });
-  ws.send("Conectado Hijo de remil puta");
+  socket.on("exituser", (username) => {
+    socket.broadcast.emit("update", username + " left the conversation");
+  });
+  socket.on("chat", (message) => {
+    console.log("Mensaje de actualización recibido:", message);
+    socket.broadcast.emit("chat", message);
+  });
 });
-
 server.listen(PORT, () => {
   console.log(`App listen in port http://${HOSTNAME}:${PORT}`);
 });
