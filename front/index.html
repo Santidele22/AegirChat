@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aegir Chat</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        /*Primary color*/
+        --primary-50: #f3f3f3;
+        --primary-100: #e8e7e7;
+        --primary-200: #c4c4c4;
+        --primary-300: #a1a0a0;
+        --primary-400: #5b5959;
+        --primary-500: #141212;
+        --primary-600: #121010;
+        --primary-700: #0f0e0e;
+        --primary-800: #0c0b0b;
+        --primary-900: #0a0909;
+        /*Secondary color*/
+        --secondary-50: #f4f7fa;
+        --secondary-100: #e9eef5;
+        --secondary-200: #c8d5e7;
+        --secondary-300: #a6bbd8;
+        --secondary-400: #6489ba;
+        --secondary-500: #21569d;
+        --secondary-600: #1e4d8d;
+        --secondary-700: #194176;
+        --secondary-800: #14345e;
+        --secondary-900: #102a4d;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        background: var(--primary-900);
+        color: var(--secondary-400);
+        display: flex;
+        justify-content: center;
+        height: 100vh;
+      }
+      .app {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        max-width: 600px;
+      }
+      .app > .screen {
+        display: none;
+      }
+      .app > .screen.active {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      .screen .form {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        max-width: 400px;
+        margin: auto;
+        text-align: center;
+        border: 1px solid;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        background: var(--secondary-900);
+      }
+      .screen .form-input {
+        width: 100%;
+        margin: 20px 8px;
+      }
+      .screen .form-input h2 {
+        margin-bottom: 20px;
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--primary-100);
+      }
+      .screen .form-input label {
+        display: block;
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+        color: var(--primary-100);
+      }
+      .screen .form-input input {
+        width: 100%;
+        border-style: none;
+        padding: 1rem;
+        font-size: 1rem;
+      }
+      .screen .form-input button {
+        padding: 1rem;
+        border-radius: 1rem;
+        background: var(--secondary-600);
+        color: var(--primary-200);
+        border-style: none;
+        width: 250px;
+        font-weight: bold;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+      .screen .form-input button:hover {
+        transition: 0.3s all;
+        background: var(--secondary-400);
+      }
+      .title {
+        font-size: 3rem;
+        font-weight: bold;
+      }
+      /*Chat screem*/
+      .chat-screen .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        align-content: center;
+        background: var(--secondary-500);
+        color: var(--secondary-50);
+        height: 50px;
+        padding: 0.8rem 1.2rem;
+      }
+      .chat-screen .header .logo {
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+      .chat-screen .header button {
+        padding: 0.8rem;
+        border-style: none;
+        width: 60px;
+        background-color: var(--secondary-50);
+        outline: none;
+        cursor: pointer;
+      }
+      .chat-screen .header button:hover {
+        transition: 0.5s all;
+        background-color: var(--secondary-300);
+      }
+      .chat-screen .messages {
+        width: 100%;
+        height: calc(100% - 100px);
+        background-color: var(--secondary-100);
+        overflow: auto;
+      }
+      .chat-screen .messages .message {
+        display: flex;
+        padding: 0.9rem;
+      }
+      .chat-screen .messages .message > div {
+        max-width: 80%;
+        background-color: #fff;
+        padding: 10px;
+      }
+      .chat-screen .messages .message.my-message {
+        justify-content: flex-end;
+      }
+      .chat-screen .messages .message.other-message {
+        justify-content: flex-start;
+      }
+      .chat-screen .messages .name {
+        font-size: 1rem;
+        color: var(--secondary-500);
+        margin-bottom: 0.3rem;
+      }
+      .chat-screen .messages .text {
+        word-wrap: break-word;
+      }
+      .chat-screen .messages .update {
+        text-align: center;
+        padding: 1rem;
+        font-style: italic;
+      }
+      .chat-screen .typebox {
+        width: 100%;
+        height: 50px;
+        display: flex;
+      }
+      .chat-screen .typebox input {
+        flex: 1;
+        height: 50px;
+        font-size: 1rem;
+        background-color: var(--secondary-100);
+      }
+      .chat-screen .typebox button {
+        width: 80px;
+        height: 100%;
+        outline: none;
+        cursor: pointer;
+        background-color: var(--secondary-600);
+        color: var(--primary-100);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="app">
+      <section class="screen join-screen active">
+        <h1 class="title">Welcome to AEgir Chatroom</h1>
+        <form action="" class="form">
+          <div class="form-input">
+            <h2>Join ChatRoom</h2>
+            <label for="">Username</label>
+            <input type="text" id="username" autocomplete="off" />
+          </div>
+          <div class="form-input">
+            <button id="join-user">Join</button>
+          </div>
+        </form>
+      </section>
+      <section class="screen chat-screen">
+        <header class="header">
+          <h3 class="logo">AEgir Chat</h3>
+          <button id="exit-chat">Exit</button>
+        </header>
+        <div class="messages"></div>
+        <div class="typebox">
+          <input type="text" id="message-input" />
+          <button id="send-message">Enviar</button>
+        </div>
+      </section>
+    </main>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+   function startChat() {
+  const app = document.querySelector(".app");
+  const socket = io();
+  let uname;
+  app
+      .querySelector(".chat-screen #exit-chat")
+      .addEventListener("click", () => {
+        socket.emit("exituser", uname);
+        window.location.href = window.location.href;
+      });
+  app
+    .querySelector(".join-screen #join-user")
+    .addEventListener("click", (e) => {
+      e.preventDefault();
+      let username = app.querySelector("#username").value;
+      if (username.length === 0) {
+        return;
+      }
+
+      socket.emit("newuser", username);
+      uname = username;
+      app.querySelector(".join-screen").classList.remove("active");
+      app.querySelector(".chat-screen").classList.add("active");
+    });
+  app
+    .querySelector(".chat-screen #send-message")
+    .addEventListener("click", () => {
+      let message = app.querySelector(
+        ".chat-screen #message-input"
+      ).value;
+      if (message.length === 0) {
+        return;
+      }
+      renderMessage("my", {
+        username: uname,
+        text: message,
+      });
+
+      socket.emit("chat", {
+        username: uname,
+        text: message,
+      });
+      app.querySelector(".chat-screen #message-input").value = "";
+    });
+
+  socket.on("update", (update) => {
+    renderMessage("update", update);
+  });
+  socket.on("chat", (message) => {
+    renderMessage("other", message);
+  });
+  function renderMessage(type, message) {
+    let messageContainer = app.querySelector(".chat-screen .messages");
+    if (type === "my") {
+      let el = document.createElement("div");
+      el.setAttribute("class", "message my-message");
+      el.innerHTML = `
+          <div>
+            <div class="name">You</div> 
+            <div class="text">${message.text}</div> 
+            </div>
+        `;
+      messageContainer.appendChild(el);
+    } else if (type === "other") {
+      let el = document.createElement("div");
+      el.setAttribute("class", "message other-message");
+      el.innerHTML = `
+          <div>
+            <div class="name">${message.username}</div> 
+            <div class="text">${message.text}</div> 
+            </div>
+        `;
+      messageContainer.appendChild(el);
+    } else if (type === "update") {
+      console.log(message);
+      let el = document.createElement("div");
+      el.setAttribute("class", "message update");
+      el.innerText = message;
+      messageContainer.appendChild(el);
+    }
+  
+    messageContainer.scrollTop =
+      messageContainer.scrollHeight - messageContainer.clientHeight;
+  }
+}
+
+// Llamar a la función para iniciar el chat
+startChat();
+
+    </script>
+  </body>
+</html>
